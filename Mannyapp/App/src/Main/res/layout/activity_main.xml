@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_main.xml
+    Menny — Advanced Personal Voice Assistant
+    Dark theme, minimal UI: voice button, text input, response area, action log.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D0D0D"
+    android:padding="20dp">
+
+    <!-- ── HEADER: App name ── -->
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MENNY"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.25"
+        android:fontFamily="sans-serif-condensed"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Assistente Pessoal"
+        android:textColor="#888888"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/tvAppName"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- ── STATUS INDICATOR (listening / idle) ── -->
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="● Aguardando"
+        android:textColor="#555555"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="@id/tvAppName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tvSubtitle" />
+
+    <!-- ── DIVIDER ── -->
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#1E1E1E"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ── RESPONSE AREA (scrollable) ── -->
+    <ScrollView
+        android:id="@+id/scrollResponse"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="12dp"
+        android:background="#141414"
+        android:padding="14dp"
+        app:layout_constraintTop_toBottomOf="@id/divider1"
+        app:layout_constraintBottom_toTopOf="@id/divider2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Last command echo -->
+            <TextView
+                android:id="@+id/tvLastCommand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#666666"
+                android:textSize="11sp"
+                android:fontFamily="monospace"
+                android:paddingBottom="8dp"
+                android:visibility="gone" />
+
+            <!-- Main response text -->
+            <TextView
+                android:id="@+id/tvResponse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Olá! Diga ou digite um comando.\nEx: \"Menny, abre o WhatsApp\""
+                android:textColor="#E0E0E0"
+                android:textSize="15sp"
+                android:lineSpacingMultiplier="1.4" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- ── DIVIDER 2 ── -->
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#1E1E1E"
+        app:layout_constraintBottom_toTopOf="@id/tvLogLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ── ACTION LOG LABEL ── -->
+    <TextView
+        android:id="@+id/tvLogLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOG DE AÇÕES"
+        android:textColor="#444444"
+        android:textSize="10sp"
+        android:letterSpacing="0.2"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@id/tvActionLog"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- ── ACTION LOG ── -->
+    <TextView
+        android:id="@+id/tvActionLog"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:text="—"
+        android:textColor="#555555"
+        android:textSize="11sp"
+        android:fontFamily="monospace"
+        android:paddingTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        app:layout_constraintBottom_toTopOf="@id/etInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ── TEXT INPUT ── -->
+    <EditText
+        android:id="@+id/etInput"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="Digite um comando..."
+        android:textColorHint="#444444"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:background="@drawable/bg_input"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:imeOptions="actionSend"
+        android:inputType="text"
+        android:singleLine="true"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@id/btnVoice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnSend" />
+
+    <!-- ── SEND BUTTON ── -->
+    <ImageButton
+        android:id="@+id/btnSend"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@android:drawable/ic_menu_send"
+        android:background="@drawable/bg_send_btn"
+        android:contentDescription="Enviar"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@id/btnVoice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/etInput" />
+
+    <!-- ── VOICE BUTTON (main CTA) ── -->
+    <Button
+        android:id="@+id/btnVoice"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:text="🎤  Pressione para falar"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:background="@drawable/bg_voice_btn_selector"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
